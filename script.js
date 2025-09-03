@@ -192,3 +192,29 @@ document.getElementById("contactForm").addEventListener("submit", (e) => {
         alert('Oops! Something went wrong.');
     });
 });
+// Закрытие модального окна
+document.querySelector(".close").addEventListener("click", () => {
+    document.getElementById("modal").style.display = "none";
+});
+
+// Обработчик отправки формы контактных данных
+document.getElementById("contactForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    fetch(e.target.action, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            alert('Thank you! Your information has been submitted.');
+            document.getElementById("modal").style.display = "none";
+        } else {
+            alert('Oops! Something went wrong.');
+        }
+    }).catch(error => {
+        alert('Oops! Something went wrong.');
+    });
+});
+
