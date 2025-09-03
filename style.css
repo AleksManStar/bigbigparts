@@ -73,7 +73,26 @@ form button:hover {
     background-color: #0056b3;
 }
 
-/* Адаптивность для мобильных устройств */
+#suggestions {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#suggestions div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+#suggestions div:hover {
+    background-color: #f9f9f9;
+}
+
+/* Responsiveness for mobile devices */
 @media (max-width: 600px) {
     nav ul {
         flex-direction: column;
