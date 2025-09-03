@@ -27,6 +27,17 @@ const translations = {
         searchButton: "Suchen",
         aboutText: "Wir sind ein Team von Profis, die großartige Websites erstellen.",
         contactText: "Kontaktieren Sie uns per E-Mail:"
+    },
+    ru: {
+        home: "Главная",
+        search: "Поиск",
+        about: "О нас",
+        contact: "Контакты",
+        welcome: "Добро пожаловать на главную страницу!",
+        example: "Это пример текста, который можно изменить.",
+        searchButton: "Поиск",
+        aboutText: "Мы — команда профессионалов, создающих крутые веб-сайты.",
+        contactText: "Свяжитесь с нами по email:"
     }
 };
 
@@ -34,14 +45,18 @@ const translations = {
 function changeLanguage(lang) {
     document.querySelectorAll("[data-lang]").forEach(element => {
         const key = element.getAttribute("data-lang");
-        element.textContent = translations[lang][key] || element.textContent;
+        if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
     });
 }
 
-// Обработчик выбора языка
-document.getElementById("languageSelector").addEventListener("change", (e) => {
-    const lang = e.target.value;
-    changeLanguage(lang);
+// Обработчик кнопок выбора языка
+document.querySelectorAll(".flag-button").forEach(button => {
+    button.addEventListener("click", () => {
+        const lang = button.getAttribute("data-lang");
+        changeLanguage(lang);
+    });
 });
 
 // Функция для фильтрации данных
