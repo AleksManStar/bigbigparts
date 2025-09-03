@@ -23,10 +23,12 @@
     <div class="container">
         <h1 data-lang="search">Search</h1>
         <form id="searchForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-            <input type="text" id="searchInput" name="car_brand" placeholder="Enter car brand" required>
+            <input type="text" id="brandInput" placeholder="Enter car brand" required>
+            <div id="brandSuggestions"></div>
+            <input type="text" id="modelInput" placeholder="Enter car model" disabled>
+            <div id="modelSuggestions"></div>
             <button type="submit" data-lang="searchButton">Search</button>
         </form>
-        <div id="suggestions"></div>
     </div>
     <script src="script.js"></script>
 </body>
