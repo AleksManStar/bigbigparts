@@ -35,7 +35,21 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Additional Information</h2>
-            <form id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+            <!-- modify this form HTML and place wherever you want your form -->
+<form
+  action="https://formspree.io/f/mqadgkyq"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
                 <input type="hidden" id="selectedBrand" name="brand">
                 <input type="hidden" id="selectedModel" name="model">
                 <label for="country">Country:</label>
