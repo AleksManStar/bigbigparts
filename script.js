@@ -115,7 +115,6 @@ document.querySelectorAll(".flag-button").forEach(button => {
 // Устанавливаем язык по умолчанию
 changeLanguage("en");
 
-// Функция для отображения подсказок
 function showSuggestions(suggestionsElement, filteredData, callback) {
     suggestionsElement.innerHTML = '';
     if (filteredData.length > 0) {
@@ -131,7 +130,7 @@ function showSuggestions(suggestionsElement, filteredData, callback) {
     }
 }
 
-// Обработчик ввода в поле марки
+
 document.getElementById("brandInput").addEventListener("input", (e) => {
     const query = e.target.value;
     const brandSuggestions = document.getElementById("brandSuggestions");
@@ -146,6 +145,25 @@ document.getElementById("brandInput").addEventListener("input", (e) => {
         brandSuggestions.innerHTML = '';
         document.getElementById("modelInput").disabled = true;
         document.getElementById("modelInput").placeholder = "Select a brand first";
+    }
+});
+
+document.getElementById("modelInput").addEventListener("input", (e) => {
+    const query = e.target.value;
+    const modelSuggestions = document.getElementById("modelSuggestions");
+    const selectedBrand = document.getElementById("brandInput").value;
+    if (query.length > 0 && selectedBrand && carData[selectedBrand]) {
+        const filteredModels = filterData(query, carData[selectedBrand]);
+        showSuggestions(modelSuggestions, filteredModels, (selectedModel) => {
+            document.getElementById("modelInput").value = selectedModel;
+            // Открываем модальное окно
+            document.getElementById("modal").style.display = "block";
+            // Заполняем скрытые поля
+            document.getElementById("selectedBrand").value = selectedBrand;
+            document.getElementById("selectedModel").value = selectedModel;
+        });
+    } else {
+        modelSuggestions.innerHTML = '';
     }
 });
 
