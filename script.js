@@ -95,5 +95,22 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
 // Обработчик отправки формы
 document.getElementById("searchForm").addEventListener("submit", (e) => {
     e.preventDefault();
-    alert(`You searched for: ${document.getElementById("searchInput").value}`);
+    const carBrand = document.getElementById("searchInput").value;
+    alert(`You searched for: ${carBrand}`);
+    // Отправка данных формы через Formspree
+    fetch(e.target.action, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            alert('Thank you! Your search has been submitted.');
+        } else {
+            alert('Oops! Something went wrong.');
+        }
+    }).catch(error => {
+        alert('Oops! Something went wrong.');
+    });
 });
