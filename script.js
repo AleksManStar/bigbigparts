@@ -82,6 +82,36 @@ const translations = {
 function filterData(query, data) {
     return data.filter(item => item.toLowerCase().includes(query.toLowerCase()));
 }
+function changeLanguage(lang) {
+    // Обновляем текст на странице
+    document.querySelectorAll("[data-lang]").forEach(element => {
+        const key = element.getAttribute("data-lang");
+        if (translations[lang] && translations[lang][key]) {
+            element.textContent = translations[lang][key];
+        }
+    });
+
+    // Обновляем плейсхолдеры и метки
+    document.getElementById("brandInput").placeholder = translations[lang].brandPlaceholder;
+    document.getElementById("modelInput").placeholder = translations[lang].modelPlaceholder;
+    document.querySelector("label[for='country']").textContent = translations[lang].countryLabel;
+    document.querySelector("label[for='name']").textContent = translations[lang].nameLabel;
+    document.querySelector("label[for='email']").textContent = translations[lang].emailLabel;
+    document.querySelector("label[for='phone']").textContent = translations[lang].phoneLabel;
+    document.querySelector("#contactForm button[type='submit']").textContent = translations[lang].submitButton;
+    document.querySelector("#modal h2").textContent = translations[lang].contactTitle;
+}
+
+// Обработчик кнопок выбора языка
+document.querySelectorAll(".flag-button").forEach(button => {
+    button.addEventListener("click", () => {
+        const lang = button.getAttribute("data-lang");
+        changeLanguage(lang);
+    });
+});
+
+// Устанавливаем язык по умолчанию
+changeLanguage("en");
 
 // Функция для отображения подсказок
 function showSuggestions(suggestionsElement, filteredData, callback) {
