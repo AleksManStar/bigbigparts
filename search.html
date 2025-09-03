@@ -30,11 +30,17 @@
         </form>
     </div>
 
-    <!-- Модальное окно -->
+  <!-- Модальное окно -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>What detail are you looking for? Tell us more info and we contact you as soon as possible prepare best price!</h2>
+            <h2 data-lang="contactTitle">Contact Information</h2>
+            <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="hidden" id="selectedBrand" name="brand">
+                <input type="hidden" id="selectedModel" name="model">
+                <label for="country" data-lang="countryLabel">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="">Select a country</option>
             <!-- modify this form HTML and place wherever you want your form -->
 <form
   action="https://formspree.io/f/mqadgkyq"
