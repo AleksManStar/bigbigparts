@@ -41,6 +41,7 @@ nav ul li a {
     cursor: pointer;
     padding: 5px;
     transition: transform 0.2s;
+    color: #fff;
 }
 
 .flag-button:hover {
