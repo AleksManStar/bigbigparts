@@ -58,36 +58,39 @@ document.getElementById("modelInput").addEventListener("input", (e) => {
         const filteredModels = filterData(query, carData[selectedBrand]);
         showSuggestions(modelSuggestions, filteredModels, (selectedModel) => {
             document.getElementById("modelInput").value = selectedModel;
+            // Открываем модальное окно
+            document.getElementById("modal").style.display = "block";
+            // Заполняем скрытые поля
+            document.getElementById("selectedBrand").value = selectedBrand;
+            document.getElementById("selectedModel").value = selectedModel;
         });
     } else {
         modelSuggestions.innerHTML = '';
     }
 });
 
-// Обработчик отправки формы
-document.getElementById("searchForm").addEventListener("submit", (e) => {
+// Закрытие модального окна
+document.querySelector(".close").addEventListener("click", () => {
+    document.getElementById("modal").style.display = "none";
+});
+
+// Обработчик отправки формы контактных данных
+document.getElementById("contactForm").addEventListener("submit", (e) => {
     e.preventDefault();
-    const brand = document.getElementById("brandInput").value;
-    const model = document.getElementById("modelInput").value;
-    if (brand && model) {
-        alert(`You searched for: ${brand} ${model}`);
-        // Отправка данных формы через Formspree
-        fetch(e.target.action, {
-            method: 'POST',
-            body: new FormData(e.target),
-            headers: {
-                'Accept': 'application/json'
-            }
-        }).then(response => {
-            if (response.ok) {
-                alert('Thank you! Your search has been submitted.');
-            } else {
-                alert('Oops! Something went wrong.');
-            }
-        }).catch(error => {
+    fetch(e.target.action, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            alert('Thank you! Your information has been submitted.');
+            document.getElementById("modal").style.display = "none";
+        } else {
             alert('Oops! Something went wrong.');
-        });
-    } else {
-        alert('Please select both a brand and a model.');
-    }
+        }
+    }).catch(error => {
+        alert('Oops! Something went wrong.');
+    });
 });
