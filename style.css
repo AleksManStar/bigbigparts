@@ -1,3 +1,118 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.language-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.flag-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+    color: #fff;
+}
+
+.flag-button:hover {
+    transform: scale(1.2);
+}
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для подсказок */
+#brandSuggestions, #modelSuggestions {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+#brandSuggestions div, #modelSuggestions div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+#brandSuggestions div:hover, #modelSuggestions div:hover {
+    background-color: #f9f9f9;
+}
+
 /* Стили для модального окна */
 .modal {
     display: none;
@@ -17,9 +132,8 @@
     padding: 20px;
     border: 1px solid #888;
     border-radius: 8px;
-    width: 90%; /* Ширина модального окна */
-    max-width: 500px; /* Максимальная ширина */
-    box-sizing: border-box; /* Учитываем padding в ширине */
+    width: 90%;
+    max-width: 500px;
 }
 
 .close {
@@ -34,48 +148,23 @@
     color: #000;
 }
 
-/* Стили для полей формы */
-label {
-    display: block;
-    margin-top: 10px;
-}
-
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box; /* Учитываем padding в ширине */
-}
-
-button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
 /* Адаптивность для мобильных устройств */
 @media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .container {
+        padding: 15px;
+        margin-top: 10px;
+    }
+
     .modal-content {
-        margin: 20px auto; /* Уменьшаем отступы */
-        padding: 15px; /* Уменьшаем внутренние отступы */
-    }
-
-    .close {
-        font-size: 24px; /* Уменьшаем размер кнопки закрытия */
-    }
-
-    input, select, button[type="submit"] {
-        padding: 8px; /* Уменьшаем padding для полей */
+        margin: 20% auto;
     }
 }
