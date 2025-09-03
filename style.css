@@ -66,53 +66,15 @@ p {
     color: #666;
 }
 
-form {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+a {
+    color: #007bff;
+    text-decoration: none;
 }
 
-form input {
-    padding: 10px;
-    width: 70%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+a:hover {
+    text-decoration: underline;
 }
 
-form button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-form button:hover {
-    background-color: #0056b3;
-}
-
-#suggestions {
-    margin-top: 10px;
-    max-height: 150px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-}
-
-#suggestions div {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-}
-
-#suggestions div:hover {
-    background-color: #f9f9f9;
-}
-
-/* Responsiveness for mobile devices */
 /* Responsiveness for mobile devices */
 @media (max-width: 600px) {
     nav ul {
@@ -126,19 +88,14 @@ form button:hover {
 
     .container {
         padding: 15px;
+        margin-top: 10px;
     }
 
-    form {
-        flex-direction: column;
+    h1 {
+        font-size: 24px;
     }
 
-    form input {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    form button {
-        width: 100%;
-        margin-left: 0;
+    p {
+        font-size: 16px;
     }
 }
