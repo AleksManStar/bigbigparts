@@ -1,48 +1,64 @@
-// Пример данных для поиска
-const data = [
-    "Apple",
-    "Banana",
-    "Cherry",
-    "Date",
-    "Elderberry",
-    "Fig",
-    "Grape",
-    "Honeydew",
-    "Kiwi",
-    "Lemon",
-    "Mango",
-    "Nectarine",
-    "Orange",
-    "Papaya",
-    "Quince",
-    "Raspberry",
-    "Strawberry",
-    "Tangerine",
-    "Ugli fruit",
-    "Vanilla",
-    "Watermelon",
-    "Xigua",
-    "Yellow watermelon",
-    "Zucchini"
+// Данные для поиска (марки машин)
+const carBrands = [
+    "Toyota", "Honda", "Ford", "Chevrolet", "BMW", "Mercedes", "Audi", "Volkswagen", "Tesla", "Nissan",
+    "Hyundai", "Kia", "Subaru", "Mazda", "Lexus", "Jeep", "Porsche", "Volvo", "Fiat", "Renault"
 ];
 
-const searchInput = document.getElementById('searchInput');
-const suggestions = document.getElementById('suggestions');
+// Языковые данные
+const translations = {
+    en: {
+        home: "Home",
+        search: "Search",
+        about: "About Us",
+        contact: "Contact",
+        welcome: "Welcome to the Home Page!",
+        example: "This is an example text that can be changed.",
+        searchButton: "Search",
+        aboutText: "We are a team of professionals creating awesome websites.",
+        contactText: "Reach out to us via email:"
+    },
+    de: {
+        home: "Startseite",
+        search: "Suche",
+        about: "Über uns",
+        contact: "Kontakt",
+        welcome: "Willkommen auf der Startseite!",
+        example: "Dies ist ein Beispieltext, der geändert werden kann.",
+        searchButton: "Suchen",
+        aboutText: "Wir sind ein Team von Profis, die großartige Websites erstellen.",
+        contactText: "Kontaktieren Sie uns per E-Mail:"
+    }
+};
+
+// Функция для смены языка
+function changeLanguage(lang) {
+    document.querySelectorAll("[data-lang]").forEach(element => {
+        const key = element.getAttribute("data-lang");
+        element.textContent = translations[lang][key] || element.textContent;
+    });
+}
+
+// Обработчик выбора языка
+document.getElementById("languageSelector").addEventListener("change", (e) => {
+    const lang = e.target.value;
+    changeLanguage(lang);
+});
 
 // Функция для фильтрации данных
 function filterData(query) {
-    return data.filter(item => item.toLowerCase().includes(query.toLowerCase()));
+    return carBrands.filter(brand => brand.toLowerCase().includes(query.toLowerCase()));
 }
 
 // Функция для отображения подсказок
 function showSuggestions(filteredData) {
+    const suggestions = document.getElementById("suggestions");
     suggestions.innerHTML = '';
     if (filteredData.length > 0) {
         filteredData.forEach(item => {
-            const div = document.createElement('div');
+            const div = document.createElement("div");
             div.textContent = item;
-            div.addEventListener('click', () => {
-                searchInput.value = item;
+            div.addEventListener("click", () => {
+                document.getElementById("searchInput").value = item;
                 suggestions.innerHTML = '';
             });
             suggestions.appendChild(div);
@@ -51,18 +67,18 @@ function showSuggestions(filteredData) {
 }
 
 // Обработчик ввода в поле поиска
-searchInput.addEventListener('input', () => {
-    const query = searchInput.value;
+document.getElementById("searchInput").addEventListener("input", (e) => {
+    const query = e.target.value;
     if (query.length > 0) {
         const filteredData = filterData(query);
         showSuggestions(filteredData);
     } else {
-        suggestions.innerHTML = '';
+        document.getElementById("suggestions").innerHTML = '';
     }
 });
 
 // Обработчик отправки формы
-document.getElementById('searchForm').addEventListener('submit', (e) => {
+document.getElementById("searchForm").addEventListener("submit", (e) => {
     e.preventDefault();
-    alert(`You searched for: ${searchInput.value}`);
+    alert(`You searched for: ${document.getElementById("searchInput").value}`);
 });
