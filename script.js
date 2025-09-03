@@ -9,6 +9,7 @@ const carData = {
     "Tesla": ["Model S", "Model 3", "Model X", "Model Y", "Cybertruck"],
     "Volkswagen": ["Golf", "Passat", "Tiguan", "Jetta", "Atlas"]
 };
+
 const translations = {
     en: {
         home: "Home",
@@ -39,7 +40,7 @@ const translations = {
         contact: "Kontakt",
         welcome: "Willkommen bei unserer Firma",
         companyDescription: "📌 Kurzbeschreibung des Unternehmens",
-        companyText: "Ein Unternehmen aus Daugavpils (Lettland), das sich auf die Lieferung von Originalteilen für Lkw und Pkw weltweit spezialisiert hat. Wir bieten eine breite Palette von Ölen und moderner Diagnoseausrüstung an. Durch die direkte Zusammenarbeit mit offiziellen Vertretern, Händlern und Herstellern garantieren wir die Echtheit, Qualität und Zuverlässigkeit jedes Teils.",
+        companyText: "Ein Unternehmen aus Daugavpils (Lettland), das sich auf die Lieferung von Originalteilen für Lkw und Pkw weltweit spezialisiert hat. Wir bieten eine breite Palette von Ölen und moderner Diagnoseausrüstung an. Durch die direkte Zusammenarbeit mit offiziellen Vertretern, Händlern und Herstellern garantieren wir die Echtheit, Qualität и Zuverlässigkeit jedes Teils.",
         advantages: "💡 Wichtige Vorteile",
         advantage1: "100 % original – Zusammenarbeit nur mit Herstellern und offiziellen Händlern.",
         advantage2: "Günstige Bedingungen – flexible Zahlungs- und Lieferoptionen, wettbewerbsfähige Preise.",
@@ -82,8 +83,9 @@ const translations = {
 function filterData(query, data) {
     return data.filter(item => item.toLowerCase().includes(query.toLowerCase()));
 }
+
+// Функция для смены языка
 function changeLanguage(lang) {
-    // Обновляем текст на странице
     document.querySelectorAll("[data-lang]").forEach(element => {
         const key = element.getAttribute("data-lang");
         if (translations[lang] && translations[lang][key]) {
@@ -192,29 +194,3 @@ document.getElementById("contactForm").addEventListener("submit", (e) => {
         alert('Oops! Something went wrong.');
     });
 });
-// Закрытие модального окна
-document.querySelector(".close").addEventListener("click", () => {
-    document.getElementById("modal").style.display = "none";
-});
-
-// Обработчик отправки формы контактных данных
-document.getElementById("contactForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    fetch(e.target.action, {
-        method: 'POST',
-        body: new FormData(e.target),
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(response => {
-        if (response.ok) {
-            alert('Thank you! Your information has been submitted.');
-            document.getElementById("modal").style.display = "none";
-        } else {
-            alert('Oops! Something went wrong.');
-        }
-    }).catch(error => {
-        alert('Oops! Something went wrong.');
-    });
-});
-
