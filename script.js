@@ -1,116 +1,93 @@
-// Данные для поиска (марки машин)
-const carBrands = [
-    "Toyota", "Honda", "Ford", "Chevrolet", "BMW", "Mercedes", "Audi", "Volkswagen", "Tesla", "Nissan",
-    "Hyundai", "Kia", "Subaru", "Mazda", "Lexus", "Jeep", "Porsche", "Volvo", "Fiat", "Renault"
-];
-
-// Языковые данные
-const translations = {
-    en: {
-        home: "Home",
-        search: "Search",
-        about: "About Us",
-        contact: "Contact",
-        welcome: "Welcome to the Home Page!",
-        example: "This is an example text that can be changed.",
-        searchButton: "Search",
-        aboutText: "We are a team of professionals creating awesome websites.",
-        contactText: "Reach out to us via email:"
-    },
-    de: {
-        home: "Startseite",
-        search: "Suche",
-        about: "Über uns",
-        contact: "Kontakt",
-        welcome: "Willkommen auf der Startseite!",
-        example: "Dies ist ein Beispieltext, der geändert werden kann.",
-        searchButton: "Suchen",
-        aboutText: "Wir sind ein Team von Profis, die großartige Websites erstellen.",
-        contactText: "Kontaktieren Sie uns per E-Mail:"
-    },
-    ru: {
-        home: "Главная",
-        search: "Поиск",
-        about: "О нас",
-        contact: "Контакты",
-        welcome: "Добро пожаловать на главную страницу!",
-        example: "Это пример текста, который можно изменить.",
-        searchButton: "Поиск",
-        aboutText: "Мы — команда профессионалов, создающих крутые веб-сайты.",
-        contactText: "Свяжитесь с нами по email:"
-    }
+// Данные для поиска (марки и модели машин)
+const carData = {
+    "Toyota": ["Corolla", "Camry", "RAV4", "Prius", "Highlander"],
+    "Honda": ["Civic", "Accord", "CR-V", "Pilot", "Odyssey"],
+    "Ford": ["F-150", "Mustang", "Explorer", "Escape", "Focus"],
+    "BMW": ["3 Series", "5 Series", "X5", "X3", "7 Series"],
+    "Mercedes": ["C-Class", "E-Class", "S-Class", "GLC", "GLE"],
+    "Audi": ["A4", "A6", "Q5", "Q7", "TT"],
+    "Tesla": ["Model S", "Model 3", "Model X", "Model Y", "Cybertruck"],
+    "Volkswagen": ["Golf", "Passat", "Tiguan", "Jetta", "Atlas"]
 };
 
-// Функция для смены языка
-function changeLanguage(lang) {
-    document.querySelectorAll("[data-lang]").forEach(element => {
-        const key = element.getAttribute("data-lang");
-        if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
-        }
-    });
-}
-
-// Обработчик кнопок выбора языка
-document.querySelectorAll(".flag-button").forEach(button => {
-    button.addEventListener("click", () => {
-        const lang = button.getAttribute("data-lang");
-        changeLanguage(lang);
-    });
-});
-
 // Функция для фильтрации данных
-function filterData(query) {
-    return carBrands.filter(brand => brand.toLowerCase().includes(query.toLowerCase()));
+function filterData(query, data) {
+    return data.filter(item => item.toLowerCase().includes(query.toLowerCase()));
 }
 
 // Функция для отображения подсказок
-function showSuggestions(filteredData) {
-    const suggestions = document.getElementById("suggestions");
-    suggestions.innerHTML = '';
+function showSuggestions(suggestionsElement, filteredData, callback) {
+    suggestionsElement.innerHTML = '';
     if (filteredData.length > 0) {
         filteredData.forEach(item => {
             const div = document.createElement("div");
             div.textContent = item;
             div.addEventListener("click", () => {
-                document.getElementById("searchInput").value = item;
-                suggestions.innerHTML = '';
+                callback(item);
+                suggestionsElement.innerHTML = '';
             });
-            suggestions.appendChild(div);
+            suggestionsElement.appendChild(div);
         });
     }
 }
 
-// Обработчик ввода в поле поиска
-document.getElementById("searchInput").addEventListener("input", (e) => {
+// Обработчик ввода в поле марки
+document.getElementById("brandInput").addEventListener("input", (e) => {
     const query = e.target.value;
+    const brandSuggestions = document.getElementById("brandSuggestions");
     if (query.length > 0) {
-        const filteredData = filterData(query);
-        showSuggestions(filteredData);
+        const filteredBrands = filterData(query, Object.keys(carData));
+        showSuggestions(brandSuggestions, filteredBrands, (selectedBrand) => {
+            document.getElementById("brandInput").value = selectedBrand;
+            document.getElementById("modelInput").disabled = false;
+            document.getElementById("modelInput").placeholder = "Enter car model";
+        });
     } else {
-        document.getElementById("suggestions").innerHTML = '';
+        brandSuggestions.innerHTML = '';
+        document.getElementById("modelInput").disabled = true;
+        document.getElementById("modelInput").placeholder = "Select a brand first";
+    }
+});
+
+// Обработчик ввода в поле модели
+document.getElementById("modelInput").addEventListener("input", (e) => {
+    const query = e.target.value;
+    const modelSuggestions = document.getElementById("modelSuggestions");
+    const selectedBrand = document.getElementById("brandInput").value;
+    if (query.length > 0 && selectedBrand && carData[selectedBrand]) {
+        const filteredModels = filterData(query, carData[selectedBrand]);
+        showSuggestions(modelSuggestions, filteredModels, (selectedModel) => {
+            document.getElementById("modelInput").value = selectedModel;
+        });
+    } else {
+        modelSuggestions.innerHTML = '';
     }
 });
 
 // Обработчик отправки формы
 document.getElementById("searchForm").addEventListener("submit", (e) => {
     e.preventDefault();
-    const carBrand = document.getElementById("searchInput").value;
-    alert(`You searched for: ${carBrand}`);
-    // Отправка данных формы через Formspree
-    fetch(e.target.action, {
-        method: 'POST',
-        body: new FormData(e.target),
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(response => {
-        if (response.ok) {
-            alert('Thank you! Your search has been submitted.');
-        } else {
+    const brand = document.getElementById("brandInput").value;
+    const model = document.getElementById("modelInput").value;
+    if (brand && model) {
+        alert(`You searched for: ${brand} ${model}`);
+        // Отправка данных формы через Formspree
+        fetch(e.target.action, {
+            method: 'POST',
+            body: new FormData(e.target),
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                alert('Thank you! Your search has been submitted.');
+            } else {
+                alert('Oops! Something went wrong.');
+            }
+        }).catch(error => {
             alert('Oops! Something went wrong.');
-        }
-    }).catch(error => {
-        alert('Oops! Something went wrong.');
-    });
+        });
+    } else {
+        alert('Please select both a brand and a model.');
+    }
 });
