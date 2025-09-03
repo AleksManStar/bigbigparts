@@ -22,8 +22,8 @@
     </nav>
     <div class="container">
         <h1 data-lang="search">Search</h1>
-        <form id="searchForm">
-            <input type="text" id="searchInput" placeholder="Enter car brand">
+        <form id="searchForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+            <input type="text" id="searchInput" name="car_brand" placeholder="Enter car brand" required>
             <button type="submit" data-lang="searchButton">Search</button>
         </form>
         <div id="suggestions"></div>
