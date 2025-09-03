@@ -113,6 +113,7 @@ form button:hover {
 }
 
 /* Responsiveness for mobile devices */
+/* Responsiveness for mobile devices */
 @media (max-width: 600px) {
     nav ul {
         flex-direction: column;
@@ -121,6 +122,10 @@ form button:hover {
 
     nav ul li {
         margin: 10px 0;
+    }
+
+    .container {
+        padding: 15px;
     }
 
     form {
