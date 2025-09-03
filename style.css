@@ -16,6 +16,7 @@ nav ul {
     padding: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 nav ul li {
@@ -26,6 +27,24 @@ nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+}
+
+.language-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.flag-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.flag-button:hover {
+    transform: scale(1.2);
 }
 
 .container {
@@ -117,4 +136,3 @@ form button:hover {
         margin-left: 0;
     }
 }
-
